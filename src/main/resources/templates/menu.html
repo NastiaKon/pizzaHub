@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <header th:insert="pattern/header :: header"></header>
+    <div class="container nt-5">
+        <h1>Меню</h1>
+        <div th:each="el:${listPositions}" class="alert alert-info nt-2">
+            <h1 th:text="${el.pos_type}"/>
+            <h3 th:text="${el.title}"/>
+            <p th:text="${el.size}"/>
+            <p th:text="${el.price}+р"/>
+            <a th:href="'/menu/' + ${el.id}" class="btn btn-warning">Детальнее</a>
+            <a th:href="'/menu/'+ 'buy/' + ${el.id}" class="btn btn-warning">Купить</a>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавление позиции</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container nt-5 mb-5">
+        <h1>Добавление позиции</h1>
+        <form action="/menu/add" method="post">
+        <input type="text" name="pos_type" placeholder="Тип продукции" class="form-control"><br>
+        <input type="text" name="title" placeholder="Введите наименование" class="form-control"><br>
+        <input type="text" name="size" placeholder="Введите размерность" class="form-control"><br>
+        <input type="text" name="price" placeholder="Введите цену" class="form-control"><br>
+        <input type="text" name="composition" placeholder="Введите состав" class="form-control"><br>
+        <button type="submit" class="btn btn-success">Добавить позицию</button>
+        </form>
+    </div>
+</body>
+</html>
