@@ -31,12 +31,12 @@ public class ShoppingCartController {
     @GetMapping("/buy/menu/{id}")
     public String cartBuy(@PathVariable(value = "id") int id, Model model, HttpSession session){
         if(session.getAttribute("cart") == null) {
-            Optional<Menu> position = MenuService.findById(id);
+            Optional<Menu> cart = MenuService.findById(id);
             ArrayList<Menu> res = new ArrayList<>();
-            position.ifPresent(res::add);
-            session.setAttribute("position", res);}
+            cart.ifPresent(res::add);
+            session.setAttribute("cart", res);}
         else {
         }
-        return "redirect:menu";
+        return "redirect:/cart-details";
     }
 }

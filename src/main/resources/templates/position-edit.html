@@ -11,6 +11,7 @@
         <h1>Редактирование позиции</h1>
         <div th:each="el:${position}">
         <form method="post">
+            <input type="text" th:value="${el.id}" name="id" readonly="readonly" placeholder="Id продукции" class="form-control"><br>
             <input type="text" th:value="${el.pos_type}" name="pos_type" placeholder="Тип продукции" class="form-control"><br>
             <input type="text" th:value="${el.title}" name="title" placeholder="Введите наименование" class="form-control"><br>
             <input type="text" th:value="${el.size}" name="size" placeholder="Введите размерность" class="form-control"><br>

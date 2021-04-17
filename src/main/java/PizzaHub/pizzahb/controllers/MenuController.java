@@ -74,6 +74,13 @@ public class MenuController {
         return "redirect:/menu";
     }
 
+
+
+    @GetMapping("/menu/remove/{id}")
+    public String menuRemover(@PathVariable(value = "id") int id){
+        return menuRemove(id);
+    }
+
     @PostMapping("/menu/remove/{id}")
     public String menuRemove(@PathVariable(value = "id") int id){
         Menu position = repo.findById(id).orElseThrow();

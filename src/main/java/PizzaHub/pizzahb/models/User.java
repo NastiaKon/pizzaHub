@@ -1,6 +1,10 @@
 package PizzaHub.pizzahb.models;
 
+import org.hibernate.annotations.ManyToAny;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -11,10 +15,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String firstName, lastName, password, role;
+    private String firstName, lastName, password;
 
     @Column(nullable = false, unique = true)
     private String email;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="role_id")
+            )
+    private Set<Role> roles = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -49,13 +61,6 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     public String getEmail() {
         return email;
@@ -65,14 +70,25 @@ public class User {
         this.email = email;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(Role role){
+        this.roles.add(role);
+    }
+
     public User() {
     }
 
-    public User(String firstName, String lastName, String password, String role, String email) {
+    public User(String firstName, String lastName, String password, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.role = role;
         this.email = email;
     }
 

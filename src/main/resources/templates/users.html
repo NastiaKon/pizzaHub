@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <title>Список юзеров</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -11,6 +12,8 @@
         <div>
             <form th:action="@{/logout}" method="post">
                 <p>
+                    Добро пожаловать <b>[[${#request.userPrincipal.principal.fullName}]]</b>
+                    <span sec:authentication="principal.authorities">Roles</span>
                 </p>
                 <input type="submit" value="Выйти" />
             </form>
@@ -26,6 +29,8 @@
                         <th>Email</th>
                         <th>Имя</th>
                         <th>Фамилия</th>
+                        <th>Роли</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,6 +39,10 @@
                     <td th:text="${user.email}">Email</td>
                     <td th:text="${user.firstName}">Имя</td>
                     <td th:text="${user.lastName}">Фамилия</td>
+                    <td th:text="${user.roles}">Роль</td>
+                    <td>
+                        <a th:href="'/users/edit/' + ${user.id}" class="btn btn-warning">Edit</a>
+                    </td>
 
                 </tr>
                 </tbody>

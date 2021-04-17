@@ -10,11 +10,14 @@
 <header th:insert="pattern/header :: header"></header>
 <div class="container nt-5">
     <h1>Меню</h1>
-    <div th:each="el:${listPositions}" class="alert alert-info nt-2">
+    <div th:each="el:${position}" class="alert alert-info nt-2">
         <h1 th:text="${el.pos_type}"/>
         <h3 th:text="${el.title}"/>
         <p th:text="${el.size}"/>
         <p th:text="${el.price}+р"/>
+        <p th:text="${el.composition}"/>
+        <a th:href="'/menu/' + 'edit/'+ ${el.id}" class="btn btn-warning">Изменить</a>
+        <a th:href="'/menu/' + 'remove/'+ ${el.id}" class="btn btn-warning">Удалить</a>
     </div>
 </div>
 

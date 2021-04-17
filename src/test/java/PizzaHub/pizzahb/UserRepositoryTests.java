@@ -1,6 +1,8 @@
 package PizzaHub.pizzahb;
 
+import PizzaHub.pizzahb.models.Role;
 import PizzaHub.pizzahb.models.User;
+import PizzaHub.pizzahb.repo.RoleRepository;
 import PizzaHub.pizzahb.repo.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,10 @@ import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTest
 
 public class UserRepositoryTests {
     @Autowired
-    private UserRepository repo;
+    private UserRepository userRepo;
+
+    @Autowired
+    private RoleRepository roleRepo;
 
     @Autowired
     private TestEntityManager entityManager;
@@ -31,7 +36,7 @@ public class UserRepositoryTests {
         user.setFirstName("Nastya");
         user.setLastName("Klimovich");
 
-        User savedUser = repo.save(user);
+        User savedUser = userRepo.save(user);
         User existUser = entityManager.find(User.class, savedUser.getId());
 
         assertThat(existUser.getEmail()).isEqualTo(user.getEmail());
@@ -41,8 +46,42 @@ public class UserRepositoryTests {
     public void testFindUserByEmail(){
         String email = "admin@mail.ru";
 
-        User user = repo.findByEmail(email);
+        User user = userRepo.findByEmail(email);
 
         assertThat(user).isNotNull();
+    }
+
+    @Test
+    public void testAddRoleToNewUser(){
+        User user = new User();
+        user.setEmail("whoami@mail.ru");
+        user.setPassword("12345");
+        user.setFirstName("Who");
+        user.setLastName("Where");
+
+        Role roleUser = roleRepo.findByName("User");
+        user.addRole(roleUser);
+
+        User savedUser = userRepo.save(user);
+
+        assertThat(savedUser.getRoles().size()).isEqualTo(1);
+    }
+
+
+    @Test
+    public void testAddRoleToOldUser(){
+        User user = userRepo.findById(1).get();
+
+        Role roleUser = roleRepo.findByName("User");
+        user.addRole(roleUser);
+
+        Role roleAdmin = new Role(2);
+        user.addRole(roleAdmin);
+
+        User savedUser = userRepo.save(user);
+
+        assertThat(savedUser.getRoles().size()).isEqualTo(2);
+
+
     }
 }
