@@ -18,6 +18,7 @@ public class MenuController {
     @Autowired
     private MenuRepository repo;
 
+
     @GetMapping("/menu")
     public String menuMain(Model model){
         Iterable<Menu> listPositions = repo.findAll();

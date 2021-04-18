@@ -12,8 +12,8 @@ public class Menu {
     private String pos_type, title, size, composition;
     private float price;
 
-    @Lob
-    private byte[] image;
+    private String mainImage;
+
 
 
     public String getPos_type() {
@@ -56,20 +56,20 @@ public class Menu {
         this.price = price;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
     public String getComposition() {
         return composition;
     }
 
     public void setComposition(String composition) {
         this.composition = composition;
+    }
+
+    public String getMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(String mainImage) {
+        this.mainImage = mainImage;
     }
 
     public Menu() {
@@ -83,5 +83,10 @@ public class Menu {
         this.price = price;
     }
 
+    @Transient
+    public String getMainImagePath(){
+        if (mainImage == null || id == null) return null;
+        return  "/menu-images/" + id + "/" + mainImage;
+    }
 
 }

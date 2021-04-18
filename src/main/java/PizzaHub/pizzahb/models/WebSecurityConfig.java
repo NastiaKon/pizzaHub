@@ -46,15 +46,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/list_users").authenticated()
+                .antMatchers("/list_users").hasAuthority("Admin")
+                .antMatchers("/menu/add").hasAuthority("Admin")
+                .antMatchers("/menu/edit/**").hasAuthority("Admin")
+                .antMatchers("/menu/delete/**").hasAuthority("Admin")
+                .antMatchers("/cart").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
+                    .loginPage("/login")
                     .usernameParameter("email")
-                    .defaultSuccessUrl("/list_users")
+                    .defaultSuccessUrl("/menu")
                     .permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/").permitAll();
+                .logout().logoutSuccessUrl("/").permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/403")
+                ;
+
+
         http.csrf().disable();
     }
 }

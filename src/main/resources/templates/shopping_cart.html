@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <header th:insert="pattern/header :: header"></header>
+
+    <div class="container nt-5">
+        <h1>Корзина</h1>
+        <form th:action="@{/logout}" method="post">
+            <p>
+                Добро пожаловать <b>[[${#request.userPrincipal.principal.fullName}]]</b>
+                <span sec:authentication="principal.authorities">Roles</span>
+            </p>
+            <input type="submit" value="Выйти" />
+            </form>
+    </div>
+<!--        <br/>-->
+        <div class="row">
+            <div class="col">
+                <th:block  th:each="item, status:${cartItems}">
+                    <div class="row border rounded">
+                        <div class="col">
+                            <div>[[${status.count}]]</div>
+                            <div><a class="fas fa-trash icon-dark" th:href="@{/}"></a></div>
+                        </div>
+<!--                        <div class="col">-->
+<!--                            <img th:scr="@{${menu.mainImagePath}}" class="img-fluid"/>-->
+<!--                        </div>-->
+                        <div class="col">
+                            <div>
+                                <a th:href="@{/menu/{id}}" target="_blank">
+                                    <b>[[${item.menu.title}]]</b>
+                                </a>
+                            </div>
+                            <div><input type="number" th:value="${item.quantity}" class="form-control"/></div>
+                            <div>
+                                <span>X</span>
+                                <span>[[${item.menu.price}]]</span>
+                            </div>
+                            <div>
+                                <span>=</span><span class="=h4"> [Subtotal]</span>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+
+            <div class="col">
+            </div>
+
+            <div th:if="${#lists.isEmpty(cartItems)}">
+                <h3 align="left">Вы ничего не добавили</h3>
+            </div>
+
+        </div>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -14,6 +15,16 @@
             <h3 th:text="${el.title}"/>
             <p th:text="${el.size}"/>
             <p th:text="${el.price}+р"/>
+            <style>
+                .gallery5 { overflow: hidden; width: 480px;}
+                .gallery5 .ramka { float: left; margin-right: 10px; margin-bottom: 10px;}
+                .gallery5 img { width: 300px; height: 300px; object-fit: cover; }
+            </style>
+
+            <div class="gallery5">
+                <div class="ramka"><img th:src="${'/img/'+el.mainImage}" > </div>
+            </div>
+
             <a th:href="'/menu/' + ${el.id}" class="btn btn-warning">Детальнее</a>
             <a th:href="'/menu/'+ 'buy/' + ${el.id}" class="btn btn-warning">Купить</a>
         </div>

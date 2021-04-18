@@ -12,5 +12,7 @@ public interface CartItemRepository extends JpaRepository<CartItem, Integer> {
 
     public List<CartItem> findByUser(User user);
 
+//    public List<CartItem> findByEmail(User user);
+
 
 }

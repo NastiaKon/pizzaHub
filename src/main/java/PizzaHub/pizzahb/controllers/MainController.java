@@ -6,6 +6,9 @@ import PizzaHub.pizzahb.models.User;
 import PizzaHub.pizzahb.repo.UserRepository;
 import PizzaHub.pizzahb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,6 +69,20 @@ public class MainController {
     public String saveUser(User user){
         service.save(user);
         return "redirect:/list_users";
+    }
+
+    @GetMapping("/403")
+    public String error403(){
+        return "403";
+    }
+
+    @GetMapping("/login")
+    public String showLoginPage() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken){
+            return "login";
+        }
+        return "redirect:/";
     }
 
 
