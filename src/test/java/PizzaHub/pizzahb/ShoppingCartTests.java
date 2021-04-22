@@ -30,13 +30,13 @@ public class ShoppingCartTests {
 
     @Test
     public void testAddOneCartItem(){
-        Menu position = entityManager.find(Menu.class, 21);
+        Menu position = entityManager.find(Menu.class, 1);
         User user = entityManager.find(User.class, 12);
 
         CartItem newItem = new CartItem();
         newItem.setUser(user);
         newItem.setMenu(position);
-        newItem.setQuantity(1);
+        newItem.setQuantity(3);
 
         CartItem savedCartItem = cartRepo.save(newItem);
 
@@ -52,10 +52,10 @@ public class ShoppingCartTests {
        assertEquals(2, cartItems.size());
     }
     @Test
-    public void testFindByEmail(){
-        User user = new User();
-        user.setEmail("stasy@yandex.ru");
-        List<CartItem> cartItems = cartRepo.findByUser(user);
+    public void testFindByMenu(){
+        Menu menu = new Menu();
+        menu.setId(1);
+        List<CartItem> cartItems = cartRepo.findPosById(menu);
 
         assertEquals(2, cartItems.size());
     }

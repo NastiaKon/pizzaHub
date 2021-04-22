@@ -1,8 +1,7 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Меню ПиццаХаб</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
@@ -13,22 +12,35 @@
         <div th:each="el:${listPositions}" class="alert alert-info nt-2">
             <h1 th:text="${el.pos_type}"/>
             <h3 th:text="${el.title}"/>
-            <p th:text="${el.size}"/>
-            <p th:text="${el.price}+р"/>
+            <span> Размерность <p th:text="${el.size}"/> </span>
+            <span> Цена <p th:text="${el.price}+р"/> </span>
             <style>
                 .gallery5 { overflow: hidden; width: 480px;}
                 .gallery5 .ramka { float: left; margin-right: 10px; margin-bottom: 10px;}
                 .gallery5 img { width: 300px; height: 300px; object-fit: cover; }
             </style>
-
             <div class="gallery5">
                 <div class="ramka"><img th:src="${'/img/'+el.mainImage}" > </div>
             </div>
+            <div>
+                <a th:href="'/menu/' + ${el.id}" class="btn btn-warning">Детальнее</a>
+            </div><br>
 
-            <a th:href="'/menu/' + ${el.id}" class="btn btn-warning">Детальнее</a>
-            <a th:href="'/menu/'+ 'buy/' + ${el.id}" class="btn btn-warning">Купить</a>
+            <div class="def-number-input number-input safari_only mb-0 w-100">
+                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                        class="minus" th:pid="${el.id}">-</button>
+                <form th:action="@{/addItem}" method="post">
+                    <input class="quantity"  th:name="'quantity'" th:id="'quantity' + ${el.id}"
+                           min="0" name="quantity" type="number">
+                    <input type="hidden" name="menu_id" th:value="${el.id}">
+                    <input type="hidden" name="user_id" th:value="${customer.getUsername()}">
+                    <button class="btn btn-primary" id="btnAddToCart" type="submit" value="OK">Добавить в корзину</button>
+                </form>
+                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                        class="plus" th:pid="${el.id}">+</button>
+                <p>"number"</p>
+            </div>
         </div>
     </div>
-
 </body>
 </html>
