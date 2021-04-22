@@ -6,6 +6,7 @@ import PizzaHub.pizzahb.models.CartItem;
 import PizzaHub.pizzahb.models.CustomUserDetails;
 import PizzaHub.pizzahb.models.Menu;
 import PizzaHub.pizzahb.models.User;
+import PizzaHub.pizzahb.repo.CartItemRepository;
 import PizzaHub.pizzahb.repo.MenuRepository;
 import PizzaHub.pizzahb.services.CustomUserDetailsService;
 import PizzaHub.pizzahb.services.ShoppingCartServices;
@@ -25,6 +26,9 @@ public class ShoppingCartController {
 
     @Autowired
     private MenuRepository menuService;
+
+    @Autowired
+    private CartItemRepository cartItemRepository;
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;

@@ -1,9 +1,11 @@
 package PizzaHub.pizzahb.controllers;
 
 
+import PizzaHub.pizzahb.models.CustomUserDetails;
 import PizzaHub.pizzahb.models.Menu;
 import PizzaHub.pizzahb.repo.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +22,10 @@ public class MenuController {
 
 
     @GetMapping("/menu")
-    public String menuMain(Model model){
+    public String menuMain(Model model, @AuthenticationPrincipal CustomUserDetails customUserDetails){
         Iterable<Menu> listPositions = repo.findAll();
         model.addAttribute("listPositions",  listPositions);
+        model.addAttribute("customer", customUserDetails);
         return "menu";
     }
     @GetMapping("/menu/add")

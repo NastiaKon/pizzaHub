@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+/**
+ *
+ */
 @Service("MenuService")
 @Transactional
 public class MenuServiceImp implements MenuService {
@@ -22,4 +25,12 @@ public class MenuServiceImp implements MenuService {
     public Menu find(int id) {
         return null;
     }
+
+    @Override
+    public Optional<Menu> findByIdMenu(int id) {
+        Optional<Menu> menu = repoMenu.findById(id);
+        return menu;
+    }
+
+
 }

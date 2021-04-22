@@ -51,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/menu/edit/**").hasAuthority("Admin")
                 .antMatchers("/menu/delete/**").hasAuthority("Admin")
                 .antMatchers("/cart").authenticated()
+                .antMatchers("/menu").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
@@ -67,4 +68,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
     }
+
 }
