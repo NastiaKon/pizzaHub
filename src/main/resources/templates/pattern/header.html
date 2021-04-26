@@ -1,22 +1,106 @@
 <div th:fragment="header">
-    <div class="container">
-        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-            <div id="PizzaHub">
-                <span>PizzaHub</span>
-            </div>
-            <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-                <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-            </a>
-            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/" class="nav-link px-2 link-secondary">Главная</a></li>
-                <li><a href="/menu" class="nav-link px-2 link-dark">Меню</a></li>
-                <li><a sec:authorize="hasAnyAuthority('User')"href="/cart" class="nav-link px-2 link-secondary">Корзина</a></li>
-                <li><a sec:authorize="hasAnyAuthority('Admin')" href="/menu/add" class="nav-link px-2 link-dark">Добавить</a></li>
-                <li><a href="/about" class="nav-link px-2 link-dark">О нас</a></li>
-                <li><a href="/login" class="btn btn-outline-primary me-2">Войти</a></li>
-                <li><a href="/sign-up" class="btn btn-outline-primary me-2">Регистрация</a></li>
-                <li><a sec:authorize="hasAnyAuthority('Admin')" href="/list_users" class="nav-link px-2 link-dark">Список пользователей</a></li>
-            </ul>
-        </header>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+
+        .navbar {
+            background-color: #333;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navbar__item {
+            padding: 14px 16px;
+        }
+
+        .navbar__item a {
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown__main {
+            color: white;
+        }
+
+        .dropdown__main:hover + .dropdown__items {
+            display: block;
+        }
+
+        .dropdown__items {
+            display: none;
+            position: absolute;
+        }
+
+        .dropdown__items:hover {
+            display: block;
+        }
+
+        .dropdown__item {
+            padding: 5px;
+            margin-top: 2px;
+            background: red;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="navbar__item">
+        <a href="/">PizzaHub</a>
     </div>
+    <div class="navbar__item">
+        <a href="/">Главная</a>
+    </div>
+    <div class="navbar__item">
+        <a sec:authorize="hasAnyAuthority('User', 'Admin')"  href="/menu">Меню</a>
+    </div>
+    <div class="navbar__item">
+        <a sec:authorize="isAnonymous()" href="/login">Войти</a>
+    </div>
+    <div class="navbar__item">
+        <a sec:authorize="hasAnyAuthority('User', 'Admin')" href="/logout">Выйти</a>
+    </div>
+    <div class="navbar__item">
+        <a sec:authorize="isAnonymous()" href="/sign-up">Регистрация</a>
+    </div>
+    <div class="navbar__item">
+        <a sec:authorize="hasAnyAuthority('Admin')" href="/menu/add">Добавить</a>
+    </div>
+    <div class="navbar__item">
+        <a sec:authorize="hasAnyAuthority('Admin')" href="/list_users">Список пользователей</a>
+    </div>
+    <div class="navbar__item">
+        <a sec:authorize="hasAnyAuthority('User')" href="/cart">Корзина</a>
+    </div>
+    <div class="navbar__item">
+        <div class="dropdown">
+            <div class="dropdown__main">Информация</div>
+            <div class="dropdown__items">
+                <div class="dropdown__item">
+                    <a href="#">Первый</a>
+                </div>
+                <div class="dropdown__item">
+                    <a href="#">Первый</a>
+                </div>
+                <div class="dropdown__item">
+                    <a href="#">Первый</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
 </div>

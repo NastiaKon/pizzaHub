@@ -1,29 +1,31 @@
 <html>
 <head>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 </head>
 <body>
-    <div align="center">
-    <h1>Войдите в систему</h1>
-    <form name='f' action="/login" method='POST'>
-        <span class="login100-form-avatar">
-            <img src="/img/PIZZAHUB.png" alt="AVATAR">
-        </span>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Email</label>
-                <input name='email' type="email" class="form-control" id="exampleInputEmail1"
+    <div class="login">
+        <h1>Войдите в систему</h1>
+        <div class="container">
+        <div class="col-md-6">
+            <form action="/login" method='POST'>
+                <span class="login100-form-avatar">
+                    <img src="/img/PIZZAHUB.png" alt="AVATAR">
+                </span>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input name='email' type="email" class="form-control" id="exampleInputEmail1"
                        aria-describedby="emailHelp" placeholder="Enter email">
-                <small id="emailHelp" class="form-text text-muted">Введите ваш email</small>
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input name='password' type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
-            <button type="submit" name="submit" class="btn btn-primary">Войти</button>
-        </form>
-    </form>
+                    <small id="emailHelp" class="form-text text-muted">Введите ваш email</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input name='password' type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                </div>
+                <button type="submit" name="submit" class="btn btn-primary">Войти</button>
+            </form>
+        </div>
+        </div>
     </div>
 </body>
 </html>

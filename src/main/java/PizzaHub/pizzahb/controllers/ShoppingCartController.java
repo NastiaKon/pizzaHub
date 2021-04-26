@@ -67,16 +67,18 @@ public class ShoppingCartController {
         return "redirect:/menu";
     }
 
-//    @PostMapping("/changeItem")
-//    public String changeItemInShoppingCart(@AuthenticationPrincipal CustomUserDetails customUserDetails,
-//                                           @RequestParam int menu_id, @RequestParam int quantity) {
-//        User user = userService.findByEmail(customUserDetails.getUsername());
-////        List<CartItem> cartItems = cartServices.listCartItems(user);
-//        Menu menu = menuService.findById(menu_id).orElseThrow();
-//        List<CartItem> cartItem = cartServices.findPosById(menu);
-//        cartItem.setQuantity(quantity);
-//        cartItemRepository.save(cartItem);
-//        return "redirect:/cart";
+
+//    @GetMapping("/cartItem/{id}/delete")
+//    public String deleteFromCart(@PathVariable(value = "id") int id){
+//        return deleteFromCart(id);
+//    }
+//
+//    @PostMapping("/cartItem/{id}/delete")
+//    public String deleteFromCart(@PathVariable(value = "id") int id) {
+//        Menu position = menuService.findById(id).orElseThrow();
+//        CartItem cartItem = cartServices.findByIdCartItem(id).orElseThrow();
+//        cartServices.(position);
+//
 //    }
 }
 

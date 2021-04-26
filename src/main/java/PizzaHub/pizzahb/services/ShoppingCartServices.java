@@ -29,6 +29,12 @@ public class ShoppingCartServices {
         return cartRepo.findPosById(menu);
     }
 
+//
+//    public Optional<CartItem> findByIdCartItem(long id){
+//        Optional<CartItem> cartItem = cartRepo.findById((int) id);
+//        return cartItem;
+//    }
+
 
 //    public int addToCart(int pos_id, int quantity, User user){
 //        int addedQuantity = quantity;
