@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Вакансии</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <header th:insert="pattern/header :: header"></header>
+  <style>
+    #con1 {
+      top: 20%;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+
+<div id="con1" class="container">
+  <div class="container">
+    <h2>Нам требуется</h2>
+    <div id="accordion">
+      <div class="card">
+        <div class="card-header">
+          <a class="card-link" data-toggle="collapse"  href="#collapseOne" >
+            Повар пиццамейкер
+          </a>
+        </div>
+        <div id="collapseOne" class="collapse show" data-parent="#accordion">
+          <div class="card-body">
+            Приготовление пиццы в соответствии с меню. Соблюдение правил использования продуктов и личной гигиены. Поддержание порядка на рабочем месте.
+            Наличие медицинской книжки. Опыт работы в ресторанах от 1 года.
+            <a>Адрес: Семеновская дом 6</a>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+            Управляющий пиццерией
+          </a>
+        </div>
+        <div id="collapseTwo" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            Руководство командой: найм, стажировка, адаптация, обучение, развитие, мотивация. Менеджерский цикл: постановка задач, контроль исполнения, делегирование, предоставление обратной связи.
+            Обязательно опыт работы от 2х лет в сетевых ресторанах (KFC, Макдоналдс, Бургер Кинг, Domino’s Pizza, Папа Джонс)
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+            Фронтенд разработчик
+          </a>
+        </div>
+        <div id="collapseThree" class="collapse" data-parent="#accordion" >
+          <div class="card-body">
+            Разработка фронтенд приложения на базе React. Реализация функциональных требований по интеграции с существующей системой. Проработка и реализация идей по оптимизации.
+            Опыт разработки на базе React от 1 года. Наличие опыта в разработке крупных фронтенд приложений на базе React.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<footer th:insert="pattern/footer :: footer"></footer>
+</html>
