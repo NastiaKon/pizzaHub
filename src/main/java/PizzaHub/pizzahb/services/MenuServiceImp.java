@@ -28,6 +28,7 @@ public class MenuServiceImp implements MenuService {
     }
 
     @Override
+    @Transactional
     public Optional<Menu> findByIdMenu(int id) {
         Optional<Menu> menu = repoMenu.findById(id);
         return menu;

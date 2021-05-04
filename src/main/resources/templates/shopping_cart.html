@@ -1,36 +1,35 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Корзина</title>
+    <style>
+        body {
+            background-image: url("/img/backgr.png");
+        }
+        p {
+            font-family: Bahnschrift;
+            font-size: x-large;
+        }
+        #con1 {
+            top: 20%;
+            position: absolute;
+        }
+        b {
+            font-family: Bahnschrift;
+            color: #a85701;
+        }
+    </style>
+    <div th:insert="pattern/header :: header"></div>
 </head>
 <body>
-    <header th:insert="pattern/header :: header"></header>
-
-    <div class="container nt-5">
-        <h1>Корзина</h1>
-        <form th:action="@{/logout}" method="post">
-            <p>
-                Добро пожаловать <b>[[${#request.userPrincipal.principal.fullName}]]</b>
-                <span sec:authentication="principal.authorities">Roles</span>
-            </p>
-            <input type="submit" value="Выйти" />
-            </form>
-    </div>
-
+<div class="container" id="con1">
+    <h1>Корзина</h1>
         <div class="row m-1">
             <div class="col-sm-8">
                 <th:block  th:each="item, status:${cartItems}">
                     <div class="row border rounded">
                         <div class="col-1">
                             <div>[[${status.count}]]</div>
-                            <div>
-                                <a href="#!" type="button" class="card-link-secondary small text-uppercase mr-3"><i
-                                        class="fas fa-trash-alt mr-1"></i> Remove item </a>
-                            </div>
-
                         </div>
                         <div class="col-3">
                             <img th:src="${'/img/'+item.menu.mainImage}" class="img-fluid"/>
@@ -41,22 +40,7 @@
                                     <b>[[${item.menu.title}]]</b>
                                 </a>
                             </div>
-<!--                            <div class="def-number-input number-input safari_only mb-0 w-100">-->
-<!--                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"-->
-<!--                                        class="minus" th:pid="${item.menu.id}">-</button>-->
-<!--                                <form th:action="@{/changeItem}" method="post">-->
-<!--                                    <input class="quantity"  th:name="'quantity'" th:id="'quantity' + ${item.menu.id}"-->
-<!--                                           min="0" name="quantity" type="number" th:value="${item.quantity}">-->
                                 <b>Количество: [[${item.quantity}]]</b>
-<!--                                    <input type="hidden" name="menu_id" th:value="${item.menu.id}">-->
-<!--                                    <input type="hidden" name="user_id" th:value="${customer.getUsername()}">-->
-<!--                                    <button class="btn btn-primary" id="btnAddToCart" type="submit" value="OK">Изменить</button>-->
-<!--                                </form>-->
-<!--                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"-->
-<!--                                        class="plus" th:pid="${item.menu.id}">+</button>-->
-<!--                            <div>-->
-<!--                                <b>[[${item.quantity}]]</b>-->
-<!--                            </div>-->
                             <div>
                                 <span>X</span>
                                 <span>[[${item.menu.price}]]</span>
@@ -71,20 +55,19 @@
             </div>
             <div class="col-sm-4">
                 <div>
-                    <span>Итого:</span>
+                    <span>Ваш заказ верен?</span>
                 </div>
-                <div class="mt-2" th:unless="${#lists.isEmpty(cartItems)}">
-                    <span class="h2">Суммарно: </span>
-                </div>
-                <div class="mt-2">
-                    <button class="btn btn-danger p-3 mt-2">Подтвердить</button>
-                </div>
+                <form method="post">
+                    <div class="mt-2">
+                        <button type="submit">Подтвердить</button>
+                    </div>
+                </form>
             </div>
         </div>
             <div th:if="${#lists.isEmpty(cartItems)}">
                 <h3 align="left">Вы ничего не добавили</h3>
             </div>
 
-
+</div>
 </body>
 </html>

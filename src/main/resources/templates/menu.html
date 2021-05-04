@@ -4,41 +4,101 @@
     <title>Меню ПиццаХаб</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body{
+            background-image: url("/img/backgr.png");
+        }
+        #cont1 {
+            top: 15%;  /* Расстояние от нижнего края окна браузера */
+            left: 10%;
+            position: absolute; /* Абсолютное позиционирование */
+            background: white; /* Цвет фона */
+            padding: 7px; /* Поля вокруг текста */
+            border: solid 1px black; /* Параметры рамки */
+        }
+        #cont2 {
+            background-image: url("/img/backgr.png");
+        }
+        .gallery5 { overflow: hidden; width: 480px;}
+        .gallery5 .ramka { float: left; margin-right: 10px; margin-bottom: 10px;}
+        .gallery5 img { width: 300px; height: 300px; object-fit: cover; }
+        #p2, #p1 {
+            font-family: 'Merriweather', serif;
+            letter-spacing: 1px;
+            font-size: xx-large;
+            color: #a85701;
+        }
+        p, span {
+            font-family: 'Merriweather', serif;
+            letter-spacing: 1px;
+            font-size: large;
+            color: #a85701;
+        }
+        #col1{
+            padding-top: 15pt;
+            left: 20%;
+        }
+        #d1 {
+            font-family: 'Merriweather', serif;
+            font-size: 200%;
+            letter-spacing: 1px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            display: inline-block;
+            color: #a85701;
+        }
+
+    </style>
+    <div th:insert="pattern/header :: header"></div>
 </head>
 <body>
-    <header th:insert="pattern/header :: header"></header>
-    <div class="container nt-5">
-        <h1>Меню</h1>
-        <div th:each="el:${listPositions}" class="alert alert-info nt-2">
-            <h1 th:text="${el.pos_type}"/>
-            <h3 th:text="${el.title}"/>
-            <span> Размерность <p th:text="${el.size}"/> </span>
-            <span> Цена <p th:text="${el.price}+р"/> </span>
-            <style>
-                .gallery5 { overflow: hidden; width: 480px;}
-                .gallery5 .ramka { float: left; margin-right: 10px; margin-bottom: 10px;}
-                .gallery5 img { width: 300px; height: 300px; object-fit: cover; }
-            </style>
-            <div class="gallery5">
-                <div class="ramka"><img th:src="${'/img/'+el.mainImage}" > </div>
+    <div id="cont1" class="container">
+        <div class="col"><span id="d1">------Меню------</span></div>
+        <div id="cont2" class="container">
+            <div class="row">
+                <div th:each="type:${types}">
+                    <div class="container">
+                        <button type="button" class="btn btn-link">
+                            <a style="font-size: 150%" th:href="@{/menu(type_id=${type.id})}" th:text="${type.name}"></a>
+                        </button>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-link">
+                    <a style="font-size: 150%" th:href="'/menu'">Все</a>
+                </button>
             </div>
-            <div>
-                <a th:href="'/menu/' + ${el.id}" class="btn btn-warning">Детальнее</a>
-            </div><br>
-
-            <div class="def-number-input number-input safari_only mb-0 w-100">
-                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                        class="minus" th:pid="${el.id}">-</button>
-                <form th:action="@{/addItem}" method="post">
-                    <input class="quantity"  th:name="'quantity'" th:id="'quantity' + ${el.id}"
-                           min="0" name="quantity" type="number">
-                    <input type="hidden" name="menu_id" th:value="${el.id}">
-                    <input type="hidden" name="user_id" th:value="${customer.getUsername()}">
-                    <button class="btn btn-primary" id="btnAddToCart" type="submit" value="OK">Добавить в корзину</button>
-                </form>
-                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                        class="plus" th:pid="${el.id}">+</button>
-                <p>"number"</p>
+        </div>
+        <div class="container p-4">
+            <h2>---------------------------------------------------------------</h2>
+            <div th:each="el:${listPositions}" class="container">
+                <div class="col">
+                    <p id="p1" th:text="${el.type.name}"/>
+                    <p id="p2" th:text="${el.title}"/>
+                    <span> Размерность - <p th:text="${el.size}"/></span>
+                    <span> Цена - <p th:text="${el.price}+р"/></span>
+                    <div class="gallery5">
+                        <div class="ramka"><img th:src="${'img/'+el.mainImage}" > </div>
+                    </div>
+                    <div id="col1" class="col">
+                        <a th:href="'/menu/' + ${el.id}" class="btn btn-warning">Детальнее</a>
+                    </div>
+                    <br>
+                    <div sec:authorize="hasAnyAuthority('User')" class="def-number-input number-input">
+                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                            class="minus">-</button>
+                        <form th:action="@{/addItem}" method="post">
+                            <input class="quantity"  th:name="'quantity'" th:id="'quantity' + ${el.id}"
+                                min="1" max="5" name="quantity" type="number">
+                            <input type="hidden" name="menu_id" th:value="${el.id}">
+                            <input type="hidden" name="user_id" th:value="${customer.getUsername()}">
+                            <button class="btn btn-warning" id="btnAddToCart" type="submit" value="OK">Добавить в корзину</button>
+                        </form>
+                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                            class="plus">+</button>
+                    </div>
+                    <h2>---------------------------------------------------------------</h2>
+                </div>
             </div>
         </div>
     </div>

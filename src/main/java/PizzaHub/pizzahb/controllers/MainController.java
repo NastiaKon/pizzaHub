@@ -1,21 +1,17 @@
 package PizzaHub.pizzahb.controllers;
 
-/*import PizzaHub.pizzahb.models.MenuService;*/
 import PizzaHub.pizzahb.models.Role;
 import PizzaHub.pizzahb.models.User;
-import PizzaHub.pizzahb.repo.UserRepository;
 import PizzaHub.pizzahb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 
 import java.util.List;
 
@@ -26,27 +22,55 @@ public class MainController {
     private UserService service;
 
 
-
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("title", "Добро пожаловать!");
         return "index";
     }
+
     @GetMapping("/about")
     public String about(Model model) {
         model.addAttribute("title", "О нас");
         return "about";
     }
+
+    @GetMapping("/contacts")
+    public String contacts(Model model) {
+        model.addAttribute("title", "Контакты");
+        return "contacts";
+    }
+
+    @GetMapping("/work")
+    public String workInfo(Model model) {
+        model.addAttribute("title", "Поиск работы");
+        return "work";
+    }
+
+    @GetMapping("/bonus")
+    public String bonus(Model model) {
+        model.addAttribute("title", "Акции");
+        return "bonus";
+    }
+
+    @GetMapping("/author")
+    public String author(Model model) {
+        model.addAttribute("title", "Создатель");
+        return "author";
+    }
+
+
     @GetMapping("/sign-up")
     public String signUp(Model model) {
         model.addAttribute("user", new User());
         return "signup_form";
     }
+
     @PostMapping("/process_register")
     public String registration(User user) {
         service.saveUserWithDefaultRole(user);
         return "signup-success";
     }
+
     @GetMapping("/list_users")
     public String viewUsers(Model model){
         List<User> listUsers = service.listAll();

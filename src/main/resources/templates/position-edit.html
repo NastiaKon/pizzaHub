@@ -4,15 +4,20 @@
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <header th:insert="pattern/header :: header"></header>
+    <style>
+        #con1 {
+            top: 20%;
+            position: absolute;
+        }
+    </style>
 </head>
 <body>
-    <header th:insert="pattern/header :: header"></header>
-    <div class="container nt-5 mb-5">
-        <h1>Редактирование позиции</h1>
+    <div id="con1" class="container">
+        <h1 >Редактирование позиции</h1>
         <div th:each="el:${position}">
         <form method="post">
             <input type="text" th:value="${el.id}" name="id" readonly="readonly" placeholder="Id продукции" class="form-control"><br>
-            <input type="text" th:value="${el.pos_type}" name="pos_type" placeholder="Тип продукции" class="form-control"><br>
             <input type="text" th:value="${el.title}" name="title" placeholder="Введите наименование" class="form-control"><br>
             <input type="text" th:value="${el.size}" name="size" placeholder="Введите размерность" class="form-control"><br>
             <input type="text" th:value="${el.price}" name="price" placeholder="Введите цену" class="form-control"><br>
@@ -22,4 +27,5 @@
     </div>
     </div>
 </body>
+<footer th:insert="pattern/footer :: footer"></footer>
 </html>

@@ -15,13 +15,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 @Controller
@@ -32,9 +29,6 @@ public class ShoppingCartController {
 
     @Autowired
     private CartItemRepository cartItemRepository;
-
-    @Autowired
-    private CustomUserDetailsService customUserDetailsService;
 
     @Autowired
     private UserService userService;
@@ -54,6 +48,29 @@ public class ShoppingCartController {
         return "shopping_cart";
     }
 
+
+    @PostMapping("/cart")
+    public String Order(Model model, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+
+        User user = userService.findByEmail(customUserDetails.getUsername());
+        List<CartItem> cartItems = cartServices.listCartItems(user);
+        for (CartItem cartItem : cartItems) {
+            cartItem.setStatus(true);
+            cartItemRepository.save(cartItem);
+        }
+
+        model.addAttribute("pageTitle", "Shopping Cart");
+
+        return "redirect:/delivery";
+    }
+
+    @GetMapping("/delivery")
+    public String contacts(Model model,  @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        User user = userService.findByEmail(customUserDetails.getUsername());
+        model.addAttribute("user", user);
+        return "delivery";
+    }
+
     @PostMapping("/addItem")
     public String addItemToShoppingCart(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                         @RequestParam String user_id, @RequestParam int menu_id, @RequestParam int quantity) {
@@ -63,23 +80,11 @@ public class ShoppingCartController {
         cartItem.setUser(user);
         cartItem.setMenu(menu);
         cartItem.setQuantity(quantity);
+        cartItem.setStatus(false);
         cartItemRepository.save(cartItem);
         return "redirect:/menu";
     }
 
-
-//    @GetMapping("/cartItem/{id}/delete")
-//    public String deleteFromCart(@PathVariable(value = "id") int id){
-//        return deleteFromCart(id);
-//    }
-//
-//    @PostMapping("/cartItem/{id}/delete")
-//    public String deleteFromCart(@PathVariable(value = "id") int id) {
-//        Menu position = menuService.findById(id).orElseThrow();
-//        CartItem cartItem = cartServices.findByIdCartItem(id).orElseThrow();
-//        cartServices.(position);
-//
-//    }
 }
 
 

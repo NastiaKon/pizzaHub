@@ -22,45 +22,11 @@ public class ShoppingCartServices {
     private MenuRepository menuRepo;
 
     public List<CartItem> listCartItems (User user){
-        return cartRepo.findByUser(user);
+        return cartRepo.findByUserAndStatusFalse(user);
     }
 
     public List<CartItem> listCartMenu (Menu menu){
         return cartRepo.findPosById(menu);
     }
-
-//
-//    public Optional<CartItem> findByIdCartItem(long id){
-//        Optional<CartItem> cartItem = cartRepo.findById((int) id);
-//        return cartItem;
-//    }
-
-
-//    public int addToCart(int pos_id, int quantity, User user){
-//        int addedQuantity = quantity;
-//
-//        Menu position = menuRepo.findById(pos_id).get();
-//
-//        CartItem cartItem = cartRepo.findByUserAndPosition(user, position);
-//
-//        if (cartItem != null) {
-//            addedQuantity = cartItem.getQuantity() + quantity;
-//            cartItem.setQuantity(addedQuantity);
-//        } else {
-//            cartItem = new CartItem();
-//            cartItem.setQuantity(quantity);
-//            cartItem.setUser(user);
-//            cartItem.setMenu(position);
-//        }
-//        cartRepo.save(cartItem);
-//
-//        return addedQuantity;
-//
-//    }
-
-
-
-
-
 
 }

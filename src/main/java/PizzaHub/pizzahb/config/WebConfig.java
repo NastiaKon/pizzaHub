@@ -20,5 +20,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceHandler("/js/**")
                 .addResourceLocations("classpath:/static/js/");
     }
+
+
+
 }
 

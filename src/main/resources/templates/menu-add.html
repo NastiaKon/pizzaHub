@@ -1,5 +1,4 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Добавление позиции</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -8,13 +7,20 @@
 <body>
     <div class="container nt-5 mb-5">
         <h1>Добавление позиции</h1>
-        <form action="/menu/add" method="post">
-        <input type="text" name="pos_type" placeholder="Тип продукции" class="form-control"><br>
+        <form action="/menu/add" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Выберите тип блюда</label>
+                <select class="form-control" name="type_food">
+                    <div th:each="el:${types}">
+                        <option th:value="${el.name}" th:text="${el.name}"></option>
+                    </div>
+                </select>
+            </div>
         <input type="text" name="title" placeholder="Введите наименование" class="form-control"><br>
         <input type="text" name="size" placeholder="Введите размерность" class="form-control"><br>
         <input type="text" name="price" placeholder="Введите цену" class="form-control"><br>
         <input type="text" name="composition" placeholder="Введите состав" class="form-control"><br>
-        <input type="file" name="image" placeholder="Добавить картинку">
+        <input type="file" name="file" placeholder="Добавить картинку">
         <button type="submit" class="btn btn-success">Добавить позицию</button>
         </form>
     </div>

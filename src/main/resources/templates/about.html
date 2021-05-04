@@ -1,13 +1,31 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>PizzaHub - самая быстрая доставка по Москве</title>
+    <meta charset="utf-8">
+    <header th:insert="pattern/header :: header"></header>
+    <style>
+        body {
+            background-image: url("/img/backgr.png");
+        }
+        p {
+            font-family: Bahnschrift;
+            font-size: x-large;
+        }
+        #con1 {
+            top: 20%;
+            position: absolute;
+        }
+    </style>
 </head>
-<body>
-<header th:insert="pattern/header :: header"></header>
-<p th:text="'Hello, ' + ${title} + '!'" />
 
+<body>
+<div id="con1" class="container">
+    <p>«Пицца Хаб» — быстро развивающаяся российская сеть ресторанов быстрого питания, специализирующаяся на пицце.<p>
+    <p>Дата открытия первого ресторана в г.Уфе - 2019г</p>
+    <p>ПиццаХаб за октрытость и честность, поэтому каждый покупатель может видеть что происходит на открытой кухне, а так же
+        следить за работой персонала с дома, через камеры наблюдения.</p>
+</div>
 </body>
+<footer th:insert="pattern/footer :: footer"></footer>
 </html>

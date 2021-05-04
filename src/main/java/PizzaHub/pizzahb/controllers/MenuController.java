@@ -3,40 +3,75 @@ package PizzaHub.pizzahb.controllers;
 
 import PizzaHub.pizzahb.models.CustomUserDetails;
 import PizzaHub.pizzahb.models.Menu;
+import PizzaHub.pizzahb.models.Type;
 import PizzaHub.pizzahb.repo.MenuRepository;
+import PizzaHub.pizzahb.repo.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 public class MenuController {
 
+    @Value("${upload.path}")
+    private String uploadPath;
+
     @Autowired
     private MenuRepository repo;
 
+    @Autowired
+    private TypeRepository typeRepo;
+
 
     @GetMapping("/menu")
-    public String menuMain(Model model, @AuthenticationPrincipal CustomUserDetails customUserDetails){
+    public String menuMain(Model model, @RequestParam(required = false, defaultValue = "") Integer type_id, @AuthenticationPrincipal CustomUserDetails customUserDetails){
+
         Iterable<Menu> listPositions = repo.findAll();
+        if (type_id != null){
+            listPositions = repo.findMenuByTypeId(type_id);
+        }
         model.addAttribute("listPositions",  listPositions);
         model.addAttribute("customer", customUserDetails);
+        model.addAttribute("types", typeRepo.findAll());
         return "menu";
     }
     @GetMapping("/menu/add")
-    public String menuAdd(){
+    public String menuAdd(Model model){
+        model.addAttribute("types", typeRepo.findAll());
         return "menu-add";
     }
 
     @PostMapping("/menu/add")
-    public String menuAdd(@RequestParam String pos_type, @RequestParam String title,
-                             @RequestParam String size,  @RequestParam String composition, @RequestParam String price){
-        Menu position = new Menu(pos_type, title, size, composition, Float.parseFloat(price)); /*comp = состав */
+    public String menuAdd(@RequestParam String type_food, @RequestParam String title, @RequestParam String size,  @RequestParam String composition, @RequestParam String price,
+                          @RequestParam MultipartFile file) throws Exception {
+
+        Menu position = new Menu(title, size, composition, Float.parseFloat(price));
+        Type type = typeRepo.findByName(type_food);
+        position.setType(type);
+
+        if(file.getOriginalFilename().length() != 0) {
+            File uploadFolder = new File(uploadPath);
+            if (!uploadFolder.exists()) {
+                uploadFolder.mkdir();
+            }
+
+            String uuidFile = UUID.randomUUID().toString();
+            String resultFileName = uuidFile + "_" + file.getOriginalFilename();
+            file.transferTo(new File(uploadPath + "/" + resultFileName));
+            position.setMainImage(resultFileName);
+        }
+
         repo.save(position);
         return "redirect:/menu";
     }
@@ -53,6 +88,7 @@ public class MenuController {
         return "menu-details";
     }
 
+
     @GetMapping("/menu/edit/{id}")
     public String menuPosEdit(@PathVariable(value = "id") int id, Model model){
         if (!repo.existsById(id)){
@@ -66,10 +102,9 @@ public class MenuController {
     }
 
     @PostMapping("/menu/edit/{id}")
-    public String menuEdit(@PathVariable(value = "id") int id, @RequestParam String pos_type, @RequestParam String title,
+    public String menuEdit(@PathVariable(value = "id") int id, @RequestParam String title,
                               @RequestParam String size,  @RequestParam String composition, @RequestParam String price){
         Menu position = repo.findById(id).orElseThrow();
-        position.setPos_type(pos_type);
         position.setTitle(title);
         position.setSize(size);
         position.setComposition(composition);

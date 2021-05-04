@@ -70,7 +70,7 @@ public class UserRepositoryTests {
 
     @Test
     public void testAddRoleToOldUser(){
-        User user = userRepo.findById(1).get();
+        User user = userRepo.findById(2).get();
 
         Role roleUser = roleRepo.findByName("User");
         user.addRole(roleUser);

@@ -22,6 +22,8 @@ public class CartItem {
 
     private int quantity;
 
+    private boolean status;
+
 
     public Integer getId() {
         return id;
@@ -55,6 +57,16 @@ public class CartItem {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+
 }
 
 

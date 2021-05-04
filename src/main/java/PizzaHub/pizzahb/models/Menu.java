@@ -1,6 +1,7 @@
 package PizzaHub.pizzahb.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Menu {
@@ -9,20 +10,20 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String pos_type, title, size, composition;
+    private String title, size, composition;
     private float price;
 
     private String mainImage;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "position_types",
+            joinColumns = @JoinColumn(name="menu_id"),
+            inverseJoinColumns = @JoinColumn(name="type_id")
+    )
 
+    private Type type;
 
-    public String getPos_type() {
-        return pos_type;
-    }
-
-    public void setPos_type(String pos_type) {
-        this.pos_type = pos_type;
-    }
 
     public Integer getId() {
         return id;
@@ -72,21 +73,30 @@ public class Menu {
         this.mainImage = mainImage;
     }
 
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+
+
     public Menu() {
     }
 
-    public Menu(String pos_type, String title, String size, String composition, float price) {
-        this.pos_type = pos_type;
+    public Menu(String title, String size, String composition, float price) {
         this.title = title;
         this.size = size;
         this.composition = composition;
         this.price = price;
     }
 
-    @Transient
-    public String getMainImagePath(){
-        if (mainImage == null || id == null) return null;
-        return  "/menu-images/" + id + "/" + mainImage;
-    }
+//    @Transient
+//    public String getMainImagePath(){
+//        if (mainImage == null || id == null) return null;
+//        return  "/menu-images/" + id + "/" + mainImage;
+//    }
 
 }

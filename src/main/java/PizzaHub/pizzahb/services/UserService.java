@@ -51,12 +51,6 @@ public class UserService {
         return userRepo.findById(id).get();
     }
 
-    public Optional<User> findByIdUser(int id){
-        Optional<User> user = userRepo.findById(id);
-        return user;
-
-    }
-
     public List<Role> getRoles(){
         return roleRepo.findAll();
 

@@ -2,16 +2,24 @@
 <head>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <style>
+        body{
+            background-image: url("/img/backgr.png");
+        }
+        .gallery5 { overflow: hidden; width: 480px;}
+        .gallery5 .ramka { float: left; margin-right: 10px; margin-bottom: 10px;}
+        .gallery5 img { width: 300px; height: 300px; object-fit: cover; }
+    </style>
 </head>
 <body>
     <div class="login">
-        <h1>Войдите в систему</h1>
-        <div class="container">
-        <div class="col-md-6">
-            <form action="/login" method='POST'>
-                <span class="login100-form-avatar">
-                    <img src="/img/PIZZAHUB.png" alt="AVATAR">
+        <div class="container"> <h1>Войдите в систему</h1>
+            <div class="gallery5">
+                <span>
+                    <div class="ramka"> <img src="/img/PIZZAHUB.png" alt="AVATAR"></div>
                 </span>
+            </div>
+            <form class="col-md-6" action="/login" method='POST'>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email</label>
                     <input name='email' type="email" class="form-control" id="exampleInputEmail1"

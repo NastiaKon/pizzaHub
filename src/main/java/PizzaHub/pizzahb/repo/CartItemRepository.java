@@ -11,15 +11,10 @@ import java.util.List;
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem, Integer> {
 
-    public List<CartItem> findByUser(User user);
+    public List<CartItem> findByUserAndStatusFalse(User user);
 
     public List<CartItem> findPosById(Menu menu);
 
-//    public List<CartItem> findByIdCartItem (Menu menu);
-
-//    public CartItem findByUserAndPosition(User user, Menu menu);
-
-//    public List<CartItem> findByEmail(User user);
 
 
 }

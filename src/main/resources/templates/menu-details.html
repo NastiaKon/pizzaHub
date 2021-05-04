@@ -2,26 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org"
 xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Детальнее</title>
+    <header th:insert="pattern/header :: header"></header>
+    <style>
+        #con1 {
+            top: 20%;
+            position: absolute;
+        }
+    </style>
 </head>
 
 <body>
-<header th:insert="pattern/header :: header"></header>
-<div class="container nt-5">
-    <h1>Меню</h1>
-    <div th:each="el:${position}" class="alert alert-info nt-2">
-        <h1 th:text="${el.pos_type}"/>
+<div id="con1" class="container nt-5">
+    <h1>Дополнительная информация</h1>
+    <div th:each="el:${position}" id="con2" class="container">
+        <h1 th:text="${el.type.name}"/>
         <h3 th:text="${el.title}"/>
-        <p th:text="${el.size}"/>
-        <p th:text="${el.price}+р"/>
-        <p th:text="${el.composition}"/>
+        <p>Размер: <p th:text="${el.size}"/></p>
+        <p>Цена: <p th:text="${el.price}+р"/></p>
+        <p>Состав продукта: <p th:text="${el.composition}"/> </p>
         <a sec:authorize="hasAnyAuthority('Admin')" th:href="'/menu/' + 'edit/'+ ${el.id}" class="btn btn-warning">Изменить</a>
         <a sec:authorize="hasAnyAuthority('Admin')" th:href="'/menu/' + 'remove/'+ ${el.id}" class="btn btn-warning">Удалить</a>
     </div>
 </div>
-
 </body>
-
+<footer th:insert="pattern/footer :: footer"></footer>
 </html>

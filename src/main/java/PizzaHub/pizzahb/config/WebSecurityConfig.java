@@ -1,4 +1,4 @@
-package PizzaHub.pizzahb.models;
+package PizzaHub.pizzahb.config;
 
 import PizzaHub.pizzahb.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public DaoAuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();

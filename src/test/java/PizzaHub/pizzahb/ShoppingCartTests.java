@@ -47,7 +47,7 @@ public class ShoppingCartTests {
        User user = new User();
        user.setId(12);
 
-       List<CartItem> cartItems = cartRepo.findByUser(user);
+       List<CartItem> cartItems = cartRepo.findByUserAndStatusFalse(user);
 
        assertEquals(2, cartItems.size());
     }

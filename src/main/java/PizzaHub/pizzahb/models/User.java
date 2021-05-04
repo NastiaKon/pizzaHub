@@ -1,6 +1,5 @@
 package PizzaHub.pizzahb.models;
 
-import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -15,7 +14,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String firstName, lastName, password;
+    private String firstName, lastName, password, address;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -61,6 +60,13 @@ public class User {
         this.password = password;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public String getEmail() {
         return email;
@@ -85,11 +91,12 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String password, String email) {
+    public User(String firstName, String lastName, String password, String email, String address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.email = email;
+        this.address = address;
     }
 
 }
